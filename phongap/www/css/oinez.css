@@ -1,0 +1,110 @@
+@font-face {
+  font-family: "Source Sans";
+  src: url("../font/SourceSansPro-Regular.otf");
+}
+@font-face {
+  font-family: "Source Sans";
+  src: url("../font/SourceSansPro-Light.otf");
+  font-weight: 200;
+}
+@font-face {
+  font-family: "Source Sans";
+  src: url("../font/SourceSansPro-Semibold.otf");
+  font-weight: 600;
+}
+
+body {
+  color: #000;
+  font: 16px "Source Sans", helvetica, arial, sans-serif;
+  font-weight: 200;
+  text-rendering: optimizeLegibility;
+  background-color: #ECECEC;
+}
+
+a {
+color:#fff;
+text-decoration: none;
+}
+
+.title {
+   color: #FFFFFF;
+    font-size: 1em;
+    padding-top: 5px;
+    text-transform: uppercase;
+       padding-left: 15px;
+}
+
+.header {
+	height: 50px;
+	background-color: #CACCCC;
+}
+
+
+
+.intro {
+  text-align: center;
+  margin-top: 50px;
+}
+
+p.intro {
+  margin-top: 0.5em;
+  line-height: 1.5em;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+.instrucciones {
+text-transform: uppercase;
+}
+
+
+.boton-wrapper {
+  margin: 0 auto;
+  width: 180px;
+}
+
+.wrapper-circle {
+border-radius: 50%;
+width: 80px;
+height: 80px;
+padding: 9px;
+color: #fff;
+margin: 0 auto;
+margin-top: 30px;
+}
+
+.wrapper-circle-peque {
+border-radius: 50%;
+width: 40px;
+height: 40px;
+padding: 9px;
+color: #fff;
+margin: 0 auto;
+margin-top: 15px;
+}
+
+.uno {
+background-color: #603C90;
+}
+
+.dos {
+background-color: #C3C100;
+}
+.tres {
+background-color: #5D989F;
+}
+.cuatro {
+background-color: #000000;
+}
+
+.circle-texto-peque {
+  position: relative;
+  top: 15px;
+  text-align: center;
+}
+
+.circle-texto {
+  position: relative;
+  top: 31px;
+  text-align: center;
+}

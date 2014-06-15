@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+  <script src='//api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
+  <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
+  <link href='//api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
+  <!--[if lte IE 8]>
+    <link href='//api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.ie.css' rel='stylesheet' >
+  <![endif]-->
+  <style>
+    body { margin:0; padding:0; }
+    #map { position:absolute; top:0; bottom:0; width:100%; }
+  </style>
+</head>
+<body>
+<div id='map'></div>
+<script>
+
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1); 
+  var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
+
+var points = [
+      [42.8136921 , -1.5993718],
+      [42.8136647 , -1.5993255],
+      [42.8136446 , -1.5993376],
+      [42.8134258 , -1.599008],
+      [42.8134015 , -1.5989568],
+      [42.81395   , -1.5984827],
+      [42.8146487 , -1.598002],
+      [42.8147245 , -1.5979128],
+      [42.81458   , -1.5972559],
+      [42.8140637 , -1.5965908], //10
+      [42.8141961 , -1.5959719],
+      [42.814046  , -1.5955554],
+      [42.8136521 , -1.5930762],
+      [42.8105717 , -1.5864061],
+      [42.8104146 , -1.5875713], //15
+      [42.8106707 , -1.587327],
+      [42.8111594 , -1.6015597],
+      [42.810393  , -1.579661],
+      [42.810981  , -1.5805932],
+      [42.8105541 , -1.5799009],
+      [42.8105486 , -1.5798925], //20
+      [42.8102094 , -1.579459],
+      [42.8103919 , -1.5796611],
+      [42.8122659 , -1.5766075],
+      [42.8121254 , -1.5742956],
+      [42.8063019 , -1.5871991],
+      [42.8062616 , -1.5872288],
+      [42.8062066 , -1.587317],
+      [42.8061379 , -1.5874764],
+      [42.7975265 , -1.592748],
+      [42.7931027 , -1.5951419],
+      [42.7995883 , -1.5947092],
+      [42.799587  , -1.5947044],
+      [42.7997622 , -1.5944347],
+      [42.7997769 , -1.5944589],
+      [42.8000349 , -1.5947828],
+      [42.8001538 , -1.5949384],
+      [42.8001493 , -1.594919],
+      [42.8003085 , -1.5954329],
+      [42.8003256 , -1.5953072],
+      [42.8008893 , -1.5960516],
+      [42.8089652 , -1.5959454],
+      [42.8085854 , -1.596941],
+      [42.8084078 , -1.5972434],
+      [42.8072776 , -1.5944537],
+      [42.8073005 , -1.5944428],
+      [42.8071007 , -1.5944262],
+      [42.8070098 , -1.5944736],
+      [42.8070156 , -1.5945089],
+      [42.8078827 , -1.5964979],
+      [42.8085408 , -1.5963796],
+      [42.8084807 , -1.5958258],
+      [42.8091377 , -1.5959297],
+      [42.8090977 , -1.5958799],
+      [42.8106297 , -1.5974187],
+      [42.8105975 , -1.5972274],
+      [42.8109912 , -1.5990642],
+    ];
+
+
+
+var dataRef = new Firebase("https://oinez.firebaseio.com/datos");
+dataRef.on('value', function(snapshot) {
+    var map = L.mapbox.map('map', 'examples.map-uci7ul8p')
+    .setView([42.8090541, -1.5936428], 16);
+      var marker = [];
+      var datos = snapshot.val();
+      for (var i = datos.length - 1; i >= 0; i--) {
+        console.log(datos[i][0]);
+        marker[i] = L.marker(new L.LatLng(datos[i][0], datos[i][1]), {
+                        icon: L.mapbox.marker.icon({'marker-color': '000000'}),
+                        draggable: true
+                    });
+        marker[i].bindPopup('numero '+ i);
+        marker[i].addTo(map);
+      };
+});
+var res = getDistanceFromLatLonInKm(42.8136358, -1.5993407, 42.8080106, -1.5863411);
+
+var marker = [];
+// for (var i = points.length - 1; i >= 0; i--) {
+//   marker[i] = l.marker(new l.latlng(points[i][0], points[i][1]), {
+//                   icon: l.mapbox.marker.icon({'marker-color': 'cc0033'}),
+//                   draggable: true
+//               });
+//   marker[i].bindpopup('numero '+ i);
+//   marker[i].addto(map);
+// };
+
+
+// var marker = L.marker(new L.LatLng(42.8136358, -1.5993407), {
+//                 icon: L.mapbox.marker.icon({'marker-color': 'CC0033'}),
+//                 draggable: true
+//             });
+// var marker1 = L.marker(new L.LatLng(42.8080106, -1.5863411), {
+//                 icon: L.mapbox.marker.icon({'marker-color': 'CC0033'}),
+//                 draggable: true
+//             });
+
+// marker.bindPopup('distancia: '+ res);
+// marker.addTo(map);
+// marker1.bindPopup('This marker is draggable! Move it around.');
+// marker1.addTo(map);
+// Define circle options
+// http://leafletjs.com/reference.html#circle
+var circle_options = {
+    color: '#fff',      // Stroke color
+    opacity: 1,         // Stroke opacity
+    weight: 10,         // Stroke weight
+    fillColor: '#000',  // Fill color
+    fillOpacity: 0.6    // Fill opacity
+};
+
+var linea = [
+  [42.8136358, -1.5993407],
+  [42.8080106, -1.5863411]
+]
+
+// Create array of lat,lon points
+
+// Define polyline options
+// http://leafletjs.com/reference.html#polyline
+var polyline_options = {
+    color: '#000'
+};
+
+var poloptions = {
+    color: 'olive'
+};
+// Defining a polygon here instead of a polyline will connect the
+// endpoints and fill the path.
+// http://leafletjs.com/reference.html#polygon
+var polyline = L.polyline(points, polyline_options).addTo(map);
+var polyline2 = L.polyline(linea, poloptions).addTo(map);
+</script>
+</body>
+</html>
